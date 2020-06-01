@@ -1,0 +1,86 @@
+<div class="outerbox" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="2%">
+  <div fxFlex="5%">
+
+  </div>
+  <div class="componentBox" fxFlex="95%">
+    <form [formGroup]="editprofileform" (ngSubmit)="submitChanges()">
+      <div fxLayout="column" fxLayoutGap="3%" class="Title">
+        <div fxFlex="2.5%"></div>
+        <div fxFlex="2.5%">
+          <a>Edit Your Profile</a>
+        </div>
+        <div fxFlex="10%">
+          <img class="profilepicture" [src]=" userImage||'assets/images/default_user_picture.png'">
+        </div>
+        <div fxFlex="5%">
+          <input type="file" formControlName="userImage" (change)="checksize($event)">
+        </div>
+        <div fxFlex="10%">
+          <mat-form-field appearance="standard" floatLabel="never" class="inputBox" hintLabel="Minimum Username Length is 4">
+            <mat-label>Username</mat-label>
+            <input matInput type="text" formControlName="userName">
+            <mat-error *ngIf="editprofileform.get('userName').errors?.minlength">Minimum Length is 4</mat-error>
+            <mat-error *ngIf="editprofileform.get('userName').errors?.required">You Must fill in the Username</mat-error>
+          </mat-form-field>
+        </div>
+        <div fxFlex="10%">
+          <mat-form-field appearance="standard" floatLabel="never" class="inputBox">
+            <mat-label>Email</mat-label>
+            <input matInput type="email" formControlName="email" [errorStateMatcher]="matcher">
+            <mat-error *ngIf="editprofileform.get('email').errors?.email && editprofileform.get('email').touched" >Wrong Email Format</mat-error>
+            <mat-error *ngIf="editprofileform.get('email').value ===''">You Must fill in the email</mat-error>
+          </mat-form-field>
+        </div>
+        <div  fxFlex="10%">
+          <mat-form-field appearance="standard" floatLabel="never" class="inputBox">
+            <mat-label>Birthdate</mat-label>
+            <input matInput type="date" formControlName="birthDate">
+            <mat-error *ngIf="editprofileform.get('birthDate').errors?.required" >Please insert your Birthdate</mat-error>
+          </mat-form-field>
+        </div>
+        <div  fxFlex="10%">
+          <mat-form-field appearance="standard" floatLabel="never" class="inputBox">
+            <mat-hint align="start">Insert this field if you want to change your password</mat-hint>
+            <mat-label>Old Password</mat-label>
+            <mat-pass-toggle-visibility #toggle matSuffix></mat-pass-toggle-visibility>
+            <input matInput type="password" [type]="toggle.type" formControlName="oldPassword">
+          </mat-form-field>
+          <br>
+        </div>
+        <div  fxFlex="10%">
+          <mat-form-field appearance="standard" floatLabel="never" class="inputBox" hintLabel="Password must be 8 Characters Long">
+            <mat-label>New Password</mat-label>
+            <mat-pass-toggle-visibility #toggle matSuffix></mat-pass-toggle-visibility>
+            <input matInput type="password" [type]="toggle.type" formControlName="newPassword" #password>
+            <mat-error *ngIf="editprofileform.get('newPassword').errors?.empty" >Please insert a new password</mat-error>
+          </mat-form-field>
+          <br>
+        </div>
+        <div fxFlex="5%">
+          <div style="width: 20%;padding-left: 40%">
+            <mat-password-strength [min]="8" [enableSpecialCharRule]="false" #passwordComponent [password]="password.value" (onStrengthChanged)="onStrengthChanged($event)">
+            </mat-password-strength>
+            <mat-password-strength-info
+              [passwordComponent]="passwordComponent">
+            </mat-password-strength-info>
+          </div>
+        </div>
+        <div  fxFlex="10%">
+          <mat-form-field appearance="standard" floatLabel="never" class="inputBox" hintLabel="Insert the Previously Inserted Password">
+            <mat-label>Confirm Password</mat-label>
+            <mat-pass-toggle-visibility #toggle matSuffix></mat-pass-toggle-visibility>
+            <input matInput type="password" [type]="toggle.type" formControlName="confirmPassword">
+            <mat-error *ngIf="editprofileform.get('confirmPassword').errors?.notmatch" >Password doesnt match</mat-error>
+          </mat-form-field>
+        </div>
+        <div  fxFlex="10%" STYLE="margin-bottom: 3%">
+          <button class="inputBox" mat-raised-button [disabled]="editprofileform.invalid" type="submit" color="primary"> Edit Profile </button>
+        </div>
+        <div fxFlex="5%">
+
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+

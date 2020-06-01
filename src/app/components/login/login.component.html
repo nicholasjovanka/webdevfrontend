@@ -1,0 +1,36 @@
+<div class="outerbox" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="1%" >
+  <div fxFlex="1%">
+  </div>
+  <div class="componentBox" fxFlex="99%">
+    <form [formGroup]="loginform" (ngSubmit)="login()">
+      <div fxLayout="column" fxLayoutGap="4%" class="Title">
+        <div fxFlex="2%"></div>
+        <div fxFlex="3%">
+          <a> Login</a>
+        </div>
+        <div fxFlex="40">
+          <mat-form-field appearance="standard" floatLabel="never" class="inputBox" hintLabel="Insert your email here">
+            <mat-label>Email</mat-label>
+            <input matInput type="email" formControlName="email">
+            <mat-error *ngIf="loginform.get('email').errors?.email && loginform.get('email').touched" >Wrong Email Format</mat-error>
+            <mat-error *ngIf="loginform.get('email').errors?.required">You Must fill in the Username</mat-error>
+          </mat-form-field>
+        </div>
+        <div fxFlex="40">
+          <mat-form-field appearance="standard" floatLabel="never" class="inputBox">
+            <mat-label>Password</mat-label>
+            <input matInput type="password" formControlName="password">
+            <mat-error *ngIf="loginform.get('password').errors?.required && loginform.get('password').touched">You Must fill in the password</mat-error>
+          </mat-form-field>
+        </div>
+        <div  fxFlex="10%" STYLE="margin-bottom: 3%">
+          <button class="inputBox" mat-raised-button [disabled]="loginform.invalid" type="submit" color="primary"> Login </button>
+        </div>
+        <div fxFlex="5%">
+
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+

@@ -1,0 +1,78 @@
+mat-toolbar{
+  /*background-color: #708090;*/
+  color:white;
+}
+
+.logo{
+  font-size: calc(25px + 2 * ((100vw - 1200px) / 554));
+}
+
+.links{
+  font-size: calc(25px + 2 * ((100vw - 1200px) / 554));
+}
+
+
+.searchbar{
+  width: 100%;
+  font-size: 90%;
+}
+
+.profilepicture{
+  display: inline;
+  margin: 0 auto;
+  height: 100%;
+  min-width: 100%;
+}
+
+
+.profilebutton{
+  width: 50%;
+  height: 50%;
+  z-index: 1;
+}
+
+.MenuText{
+  font-size: 200%;
+  text-align: center;
+}
+
+.userBarLoggedIn{
+  align-items: center;
+  align-content: center;
+  text-align: center;
+  width: 200px;
+  height: 100px;
+  overflow: hidden;
+  font-size: calc(16px + 4 * ((100vw - 1200px) / 554));
+  padding-top: 10%;
+}
+
+
+.userBar{
+  align-items: center;
+  align-content: center;
+  text-align: center;
+  width: 200px;
+  height: 100px;
+  overflow: hidden;
+  font-size: 200%;
+  padding-top: 10%;
+}
+
+.image-cropper {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+@media screen and (max-width: 1707px){
+  .image-cropper {
+    width: 80px;
+    height: 80px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+  }
+}
