@@ -1,0 +1,20 @@
+.logo{
+  font-size: calc(25px + 2 * ((100vw - 1200px) / 554));
+}
+
+.logosmall{
+  font-size: calc(16px + 4 * ((100vw - 1200px) / 554));
+}
+
+.searchbar{
+  width: 25%;
+}
+
+table {
+  width: 100%;
+}
+.mat-column-gameName {
+ width: 50%
+}
+
+

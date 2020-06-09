@@ -1,0 +1,41 @@
+<div class="outerbox">
+  <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="2%">
+  <div fxFlex="5%">
+
+  </div>
+    <div fxFlex="5%" class="logosmall"> Search a game here</div>
+
+  <div fxFlex="5%">
+    <mat-form-field style="width: 100%">
+      <input (keyup)="applyFilter($event)" matInput placeholder="Filter">
+    </mat-form-field>
+  </div>
+    <div fxFlex="80%" style="height: 100%">
+      <div>
+      <mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8" style="height: 50vh">
+
+        <ng-container matColumnDef="gameName" >
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Game Name. </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.gameName}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="id">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Game Id. </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.id}}</mat-cell>
+        </ng-container>
+
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row (click)="goToGame(row)" *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+      </div>
+
+      <mat-paginator [pageSizeOptions]="[5,10,20]" showFirstLastButtons >
+
+      </mat-paginator>
+    </div>
+
+
+
+
+</div>
+</div>

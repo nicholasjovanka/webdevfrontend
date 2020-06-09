@@ -1,0 +1,64 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+<div style="height: 100%;" fxLayout="column" fxLayoutAlign="start stretch">
+  <div fxFlex="25%">
+    <mat-toolbar color="primary" style="width: 100%; height: 100%">
+      <div fxLayout="row" style="width: 100%" fxLayoutAlign="start center">
+        <div fxFlex="10%">
+          <a class="logo">TH Gaming Reviews</a>
+        </div>
+        <div fxFlex="10%" fxFlexOffset="10%">
+          <a class="links test" routerLink="/homepage"  >Home</a>
+        </div>
+        <div fxFlex="10%">
+          <a class="links test" routerLink="/gamelist">Games</a>
+        </div>
+        <div fxFlex="60%">
+          <form>
+            <mat-form-field appearance="standard" floatLabel="never" class="searchbar">
+              <mat-label>Search for a Game</mat-label>
+              <input placeholder="Dota 2"  matInput  [formControl]="myControl"
+                     [matAutocomplete]="auto">
+              <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                  {{option}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+            <button mat-icon-button type="submit"> <mat-icon>search</mat-icon></button>
+          </form>
+        </div>
+        <div fxFlex="10%" fxFlexOffset="10%" style="text-align: center">
+          <button mat-icon-button class="profilebutton" [matMenuTriggerFor]="appMenu">  <div class="image-cropper"><img class="profilepicture"  [src]=" userImage||'assets/images/default_user_picture.png'"> </div>
+          </button>
+          <mat-menu #appMenu="matMenu" class="MenuText">
+            <ng-template matMenuContent >
+              <div *ngIf="!userLoggedIn" class="userBar">
+                <a>Welcome </a>
+                <br>
+                <br>
+                <a>Guest</a>
+              </div>
+              <div *ngIf="userLoggedIn" class="userBarLoggedIn">
+                <a>Welcome </a>
+                <br>
+                <a>{{userDetails.name}} </a>
+                <br>
+                <br>
+              </div>
+              <button mat-menu-item *ngIf="!userLoggedIn" (click)="goToLoginPage()">Login <mat-icon> login </mat-icon></button>
+              <button mat-menu-item *ngIf="!userLoggedIn" (click)="goToRegisterPage()">Register</button>
+              <button mat-menu-item *ngIf="userLoggedIn" (click)="goToUserProfile()">Edit Profile <mat-icon> account_box </mat-icon></button>
+              <button mat-menu-item *ngIf="userLoggedIn" (click)="logOut()">Logout</button>
+            </ng-template>
+          </mat-menu>
+        </div>
+      </div>
+    </mat-toolbar>
+  </div>
+  <div fxFlex="75%">
+    <div style="width: 100%;text-align: center;">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

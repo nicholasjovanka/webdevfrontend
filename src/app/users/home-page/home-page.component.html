@@ -1,0 +1,25 @@
+<div  *ngIf="isloaded">
+<div style="text-align: center; width: 100%;" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="5%" *ngFor="let game of gameobject; index as i">
+  <div fxFlex="15%" style="width: 100%; height: 100%; text-align: center;">
+    <div fxLayout="row" style="width: 100%; height: 100%;" fxLayoutAlign="center start"  >
+  <mat-card class="gameCard" fxFlex="80%">
+  <mat-card-header>
+    <img [src]=" fileArray[i] || 'assets/images/default_game_image.jpg'" mat-card-avatar>
+  <mat-card-title> {{game.gameName}} </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>{{getPlatform(game)}} </mat-card-content>
+    <youtube-player
+      [videoId]="game.gameTrailer"
+      height="400"
+      width="600"
+    ></youtube-player>
+    <br>
+    <mat-card-content>{{game.gameDescription}} </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary">Go to Game Page</button>
+      </mat-card-actions>
+  </mat-card>
+    </div>
+</div>
+</div>
+</div>

@@ -10,10 +10,19 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {MatCardModule} from '@angular/material/card';
 import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatTableDataSource, MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+
 const MaterialComponents = [
   MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatFormFieldModule,
   MatInputModule, MatMenuModule, MatExpansionModule, MatCardModule, MatPasswordStrengthModule
-  , MatProgressSpinnerModule
+  , MatProgressSpinnerModule,  MatAutocompleteModule, MatTableModule, MatPaginatorModule, MatDatepickerModule, MatNativeDateModule,
+  MatSnackBarModule, MatDialogModule,
 ];
 
 @NgModule({

@@ -1,0 +1,43 @@
+
+<div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="2%" style="width: 100%; height: 100%">
+  <div fxFlex="5%"></div>
+  <div fxFlex="5%">
+    <p class="logo">Welcome Admin</p>
+  </div>
+  <div fxFlex="10%">
+    <div style="">
+      <button mat-raised-button color="primary" (click)="navigateToAddGame()">Add a new game</button>
+    </div>
+  </div>
+  <div fxFlex="5%" class="logosmall"> Search a game here to edit or delete a game and click on it</div>
+  <div fxFlex="65%" [hidden]="!loaded" style="text-align: center">
+    <mat-form-field style="width: 50%">
+      <input (keyup)="applyFilter($event)" matInput placeholder="Filter">
+    </mat-form-field>
+
+    <mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8">
+
+      <ng-container matColumnDef="gameName" >
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Game Name. </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.gameName}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Game Id. </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.id}}</mat-cell>
+      </ng-container>
+
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row (click)="goToGame(row)" *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+
+    <mat-paginator [pageSizeOptions]="[5,10,20]" showFirstLastButtons >
+
+    </mat-paginator>
+  </div>
+  <div fxFlex="10%" style="width: 100%; text-align: center">
+
+  </div>
+</div>
+<!--</div>-->
+
