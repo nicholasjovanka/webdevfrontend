@@ -38,7 +38,7 @@ export class MainadminpageComponent implements OnInit, OnDestroy {
       (res: Game[]) => {if (res) {this.dataUnformated = res;
                                   this.dataSource = new MatTableDataSource(this.dataUnformated);
                                   this.loaded = true; this.dataSource.sort = this.sort; this.dataSource.paginator = this.paginator;
-                                  console.log(this.dataSource); } }
+                                 } }
     );
   }
 
@@ -48,13 +48,13 @@ export class MainadminpageComponent implements OnInit, OnDestroy {
   }
 
   log(element) {
-    console.log(element);
   }
   applyFilter($event) {
     this.dataSource.filter = $event.target.value.toLowerCase();
   }
   goToGame(row) {
-    this.router.navigate(['admin/editgame', row.id]);
+    this.gamesservice.setGameId(row.id);
+    this.router.navigate(['admin/editgame', row.gameName.replace(/\s/g, '')]);
   }
 
   navigateToAddGame() {

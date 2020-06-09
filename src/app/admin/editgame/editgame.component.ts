@@ -28,7 +28,7 @@ export class EditgameComponent implements OnInit, OnDestroy {
   private id;
   private ngUnsubscribe = new Subject();
   ngOnInit(): void {
-    this.route.paramMap.pipe(map(res => {this.id = res.get('id'); return res; }), switchMap(res => this.game.getCertaingame(res.get('id'))))
+    this.game.getCertaingame(this.game.getGameId())
       .subscribe((res: Game) => {
         this.gameObject = res;
         console.log(res);
@@ -52,7 +52,7 @@ export class EditgameComponent implements OnInit, OnDestroy {
       steamId: [''],
     });
     console.log(this.id);
-    this.game.getGameImage(this.id).subscribe(
+    this.game.getGameImage(this.game.getGameId()).subscribe(
       image => {
         if (image) {
           const reader = new FileReader();

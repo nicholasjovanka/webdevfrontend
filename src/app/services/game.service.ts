@@ -35,7 +35,7 @@ export class GameService {
   public deleteGame($id): Observable<any>{
    return this.http.delete('http://localhost:8000/api/deletegame/' + $id);
   }
-  public setGameId(id){
+  public setGameId(id) {
     this.gameId = id;
   }
   public getGameId(){
