@@ -1,7 +1,7 @@
 <div class="outerbox" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="1%" >
   <div fxFlex="1%">
   </div>
-  <div class="componentBox" fxFlex="99%">
+  <div class="componentBox" style="text-align: center" fxFlex="99%" fxFlexFill>
     <form [formGroup]="loginform" (ngSubmit)="login()">
       <div fxLayout="column" fxLayoutGap="4%" class="Title">
         <div fxFlex="2%"></div>
@@ -9,7 +9,7 @@
           <a> Login</a>
         </div>
         <div fxFlex="40">
-          <mat-form-field appearance="standard" floatLabel="never" class="inputBox" hintLabel="Insert your email here">
+          <mat-form-field appearance="standard" floatLabel="never" class="inputBox" hintLabel="Insert your email here" style="width: 20%">
             <mat-label>Email</mat-label>
             <input matInput type="email" formControlName="email">
             <mat-error *ngIf="loginform.get('email').errors?.email && loginform.get('email').touched" >Wrong Email Format</mat-error>
@@ -17,7 +17,7 @@
           </mat-form-field>
         </div>
         <div fxFlex="40">
-          <mat-form-field appearance="standard" floatLabel="never" class="inputBox">
+          <mat-form-field appearance="standard" floatLabel="never" class="inputBox" style="width: 20%">
             <mat-label>Password</mat-label>
             <input matInput type="password" formControlName="password">
             <mat-error *ngIf="loginform.get('password').errors?.required && loginform.get('password').touched">You Must fill in the password</mat-error>

@@ -102,7 +102,7 @@ export class AddgameComponent implements OnInit, OnDestroy {
       this.formdata.append('platform[platform2]', 'XBOX ONE');
     }
     if (this.addgameform.get('platform3').value === true) {
-      this.formdata.append('platform[platform3]', 'PC');
+      this.formdata.append('platform[platform3]', 'PS4');
     }
     if (this.addgameform.get('platform4').value === true) {
       this.formdata.append('platform[platform4]', 'Nintendo Switch');

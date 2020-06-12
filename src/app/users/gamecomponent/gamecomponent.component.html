@@ -1,1 +1,99 @@
+<div *ngIf="isLoaded" class="outerbox">
+
+    <div fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="1.5%" style="background-color: mintcream">
+      <div fxFlex="20%"></div>
+    <div fxFlex="2.5%" style="width: 100%">
+      <p  style="text-align: center; width: 100%;"  class = mat-display-3>{{gameObject.gameName}} </p>
+      <br>
+      <p class = mat-display-3>{{getYear()}}</p>
+    </div>
+      <div fxFlex="5%" style="width: 50%; height: 100%" *ngIf="onSteam">
+        <div class="reviewBox mat-headline">Steam Score: {{steamScore}} </div>
+      </div>
+      <div fxFlex="5%" style="width: 50%; height: 100%">
+        <div class="reviewBox mat-headline"> Website Score: {{WebsiteScore}} </div>
+      </div>
+      <div fxFlex="1%" style="width: 100%; text-align: left">
+      </div>
+    <div fxFlex="35%" style="height: 100%; width: 40%">
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20%" style="height: 100%; width: 100%">
+      <div fxFlex="30%">
+      <img class="gameImage" [src]=" gameImage||'assets/images/default_game_image.jpg'">
+      </div>
+      <div fxFlex="25%"></div>
+      <div fxFlex="70%">
+        <youtube-player
+          [videoId]="gameObject.gameTrailer"
+          height="423"
+          width="623"
+        ></youtube-player>
+      </div>
+    </div>
+    </div>
+      <div fxFlex="45%">
+      </div>
+
+    </div>
+  <mat-tab-group>
+    <mat-tab label="Overview">
+      <div fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="10%" style="height: 100%; width: 100%" fxLayoutGap="5%">
+        <div fxFlex="10%" style="width: 55%;">
+      <p class="mat-headline" style="margin-left: 5%" >{{gameObject.gameDescription}}</p>
+        </div>
+        <div fxFlex="10%" style="width: 55%">
+      <p class="mat-headline" >Platform: {{Validate(gameObject)}}</p>
+        </div>
+
+
+
+</div>
+  </mat-tab>
+  <mat-tab label="User Reviews">
+    <div fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="3%" style="height: 50vh; width: 100%" fxLayoutGap="10%">
+      <div fxFlex="30%" style="width: 100%; text-align: center" *ngIf="isLoggedIn">
+        <form [formGroup]="reviewForm" (ngSubmit)="submitReview()">
+          <p class="mat-headline"> Your Rating</p>
+        <mat-slider formControlName="userScore" style="width: 40%" thumbLabel tickInterval="1" min="1" max="5" step="1" value="0"></mat-slider>
+          <br>
+          <mat-form-field color="primary" appearance="standard" floatLabel="never"  hintLabel="Maximum is 1500 Characters" class="inputBox" style="color:black; width: 30%">
+            <mat-label>User Review</mat-label>
+            <textarea matInput
+                      cdkTextareaAutosize
+                      #input
+                      maxlength="1500"
+                      #autosize="cdkTextareaAutosize"
+                      formControlName="userReview"
+                      cdkAutosizeMinRows="1"
+                      cdkAutosizeMaxRows="3"></textarea>
+            <mat-hint align="end">{{input.value?.length || 0}}/1500</mat-hint>
+          </mat-form-field>
+          <br>
+          <button class="inputBox"  [disabled]="reviewForm.invalid"  mat-raised-button  type="submit" color="primary" style="margin-top: 2%"> Submit Review </button>
+          <br>
+        </form>
+        <button class="inputBox"  [disabled]="!hasReview"  mat-raised-button  (click)="deleteReview()" color="primary" style="margin-top: 2%; margin-bottom: 20%"> Delete Review </button>
+      </div>
+     <div fxFlex="10%"></div>
+      <div fxFlex="60%" style="width: 100%; height: 50vh; margin-top: 10%" *ngIf="beenSent">
+        <div style="text-align: center; width: 100%;" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="5%" *ngFor="let review of Reviews ; index as i">
+          <div fxFlex="15%" style="width: 100%; height: 100%; text-align: center;">
+            <div fxLayout="row" style="width: 100%; height: 100%;" fxLayoutAlign="center start"  >
+              <mat-card class="gameCard" fxFlex="80%">
+                <mat-card-header>
+                  <mat-card-title > {{name[i]}} </mat-card-title>
+                </mat-card-header>
+                <mat-card-content><p class="mat-headline"> User Review : {{review.userReview}}</p> </mat-card-content>
+                <br>
+                <mat-card-content><p class="mat-headline"> User Gives : {{review.userScore}}</p> </mat-card-content>
+              </mat-card>
+            </div>
+          </div>
+        </div>
+          <button [disabled]="canPrev()" mat-raised-button color="primary" style="margin-right: 10%" (click)="goPrev()">Go to Prev Comment Page</button>
+        <button [disabled]="canNext()" mat-raised-button color="primary" (click)="goNext()">Go to Next Comment Page</button>
+      </div>
+    </div>
+  </mat-tab>
+</mat-tab-group>
+</div>
 

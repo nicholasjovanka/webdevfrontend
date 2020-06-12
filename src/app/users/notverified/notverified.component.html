@@ -1,0 +1,10 @@
+<div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10%">
+  <div></div>
+  <div>
+    <p class="mat-display-3">Your Email is {{getState()}}</p>
+  </div>
+  <button [disabled]="isverified"  class="inputBox" mat-raised-button  (click)="Resend()"  color="primary"> Send Verification Email </button>
+  <button class="inputBox" mat-raised-button (click)="logOut()"  color="primary"> Log Out </button>
+
+
+</div>

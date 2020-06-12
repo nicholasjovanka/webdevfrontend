@@ -12,7 +12,10 @@ const routes: Routes = [
   // {path: 'register' , component: RegisterComponent},
   // {path: 'userprofile/:name' , component: UserprofileComponent, canActivate: [AuthGuard]},
   // // {path: 'admin' , component: AdminPageComponent, canActivate: [AuthGuard, AdminGuard]},
+  { path: 'isverified', loadChildren: () => import('./users/notverified/notverified.module').
+    then(m => m.NotverifiedModule), canActivate: [AuthGuard]},
   { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule), canActivate: [AuthGuard, AdminGuard]},
+  { path: 'login', loadChildren: () => import('./users/login/login.module').then(m => m.LoginModule) },
   {path: '**', component: NotFoundComponent}];
 
 @NgModule({

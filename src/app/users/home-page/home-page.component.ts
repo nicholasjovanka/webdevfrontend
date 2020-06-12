@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {GameService} from '../../services/game.service';
 import {Game} from '../../Interfaces/game';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-home-page',
@@ -9,14 +10,13 @@ import {Game} from '../../Interfaces/game';
 })
 export class HomePageComponent implements OnInit {
   isloaded = false;
-  constructor(private game: GameService) { }
+  constructor(private game: GameService, private router: Router) { }
   gameobject: Game[];
   fileArray: string[] = [];
   ngOnInit(): void {
     this.game.GetLatestGame().subscribe(
       res => {this.gameobject = res;
               this.gameobject.forEach( (e) => {
-                console.log(e);
                 this.game.getGameImage(e.id).subscribe( img => {
             const reader = new FileReader();
             reader.readAsDataURL(img);
@@ -50,5 +50,7 @@ export class HomePageComponent implements OnInit {
       return basestring;
     }
   }
-
+  goToGame(game: Game) {
+    this.router.navigate(['game', game.id, {name: game.gameName}]);
+  }
 }

@@ -3,4 +3,5 @@ export interface User {
   email: string;
   userType: string;
   birthdate?: string;
+  email_verified_at: string;
 }

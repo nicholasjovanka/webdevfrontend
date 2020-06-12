@@ -18,7 +18,7 @@ import {TokenInterceptorService} from './token-interceptor.service';
 import {GameService} from './services/game.service';
 import { CustomDialogComponent } from './custom-dialog/custom-dialog.component';
 import { ErrorDialogComponent } from './error-dialog/error-dialog.component';
-
+import {ReviewServiceService} from './services/review-service.service';
 
 @NgModule({
   declarations: [
@@ -39,7 +39,7 @@ import { ErrorDialogComponent } from './error-dialog/error-dialog.component';
     FlexLayoutModule,
   ],
   providers: [LoginRegisterService, AuthGuard,  {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher}, AdminGuard,
-    {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true }, GameService],
+    {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true }, GameService, ReviewServiceService] ,
   bootstrap: [AppComponent]
 })
 export class AppModule { }

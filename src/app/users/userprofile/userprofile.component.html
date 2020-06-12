@@ -1,8 +1,5 @@
-<div class="outerbox" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="2%">
-  <div fxFlex="5%">
-
-  </div>
-  <div class="componentBox" fxFlex="95%">
+<div class="componentBox" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="2%" *ngIf="isLoaded" style="margin: 1%">
+  <div class="componentBox" fxFlex="95%" fxFlexFill>
     <form [formGroup]="editprofileform" (ngSubmit)="submitChanges()">
       <div fxLayout="column" fxLayoutGap="3%" class="Title">
         <div fxFlex="2.5%"></div>

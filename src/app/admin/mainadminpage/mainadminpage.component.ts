@@ -52,9 +52,9 @@ export class MainadminpageComponent implements OnInit, OnDestroy {
   applyFilter($event) {
     this.dataSource.filter = $event.target.value.toLowerCase();
   }
+  // row.gameName.replace(/\s/g, '')]
   goToGame(row) {
-    this.gamesservice.setGameId(row.id);
-    this.router.navigate(['admin/editgame', row.gameName.replace(/\s/g, '')]);
+    this.router.navigate(['admin/editgame', row.id]);
   }
 
   navigateToAddGame() {

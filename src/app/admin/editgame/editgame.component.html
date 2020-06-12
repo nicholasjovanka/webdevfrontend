@@ -2,12 +2,12 @@
   <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="2%" style="height: 100%">
     <div fxFlex="2%">
     </div>
-    <div class="componentBox" fxFlex="98%" style="text-align: center; height: 100%; overflow: auto">
+    <div class="componentBox" fxFlex="98%" style="text-align: center; height: 100%; overflow: auto" fxFlexFill>
       <form [formGroup]="editgameform" (ngSubmit)="submitGame()">
         <div fxLayout="column" fxLayoutGap="4%" >
           <div fxFlex="2%"></div>
           <div fxFlex="3%">
-            <a class="Title"> Add a Game </a>
+            <a class="Title"> Edit a Game </a>
           </div>
           <div fxFlex="10%">
             <img class="profilepicture" [src]=" gameImage||'assets/images/default_game_image.jpg'">
@@ -72,9 +72,12 @@
               <input matInput type="number" formControlName="AgeRating" min="0">
             </mat-form-field>
           </div>
+          <div fxFlex="5%">
+            <button class="inputBox" mat-raised-button color="primary" (click)="goToComments()"> See Comments </button>
+          </div>
 
           <div  fxFlex="5%" STYLE="margin-bottom: 3%">
-            <button class="inputBox" mat-raised-button  type="submit" color="primary"> Edit Profile </button>
+            <button class="inputBox" mat-raised-button  type="submit" color="primary"> Edit Game </button>
           </div>
         </div>
       </form>

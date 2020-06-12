@@ -1,0 +1,18 @@
+.gameImage{
+  width: 420px;
+  border-style: solid;
+}
+.Title{
+  font-size: calc(18px + 4 * ((100vw - 1200px) / 554));
+}
+
+.reviewBox{
+  border-style: solid;
+}
+
+.gameCard{
+  width: 10%;
+  height: 15%;
+  box-shadow: 0 4px 12px 0px rgba(0,0,0,.25) ;
+  margin-bottom: 1%;
+}

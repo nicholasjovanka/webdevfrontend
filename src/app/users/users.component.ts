@@ -41,7 +41,8 @@ import {FormControl} from '@angular/forms';
 export class UsersComponent implements OnInit, OnDestroy {
   title = 'finalproject';
   userImage: string;
-  constructor(private router: Router, private loginservice: LoginRegisterService, private route: ActivatedRoute, private game: GameService) {
+  constructor(private router: Router, private loginservice: LoginRegisterService,
+              private route: ActivatedRoute, private game: GameService) {
   }
   userBarOn = false;
   userLoggedIn = false;
@@ -61,13 +62,9 @@ export class UsersComponent implements OnInit, OnDestroy {
     this.loginservice.getLoginStatus().pipe(takeUntil(this.ngUnsubscribe), share()).subscribe(
       e => {this.userLoggedIn = e;
       });
-    if (this.userLoggedIn) {
-      this.loginservice.getUserDetails();
-      this.loginservice.getUserProfilePicture();
-    }
     this.loginservice.getPicture().pipe(takeUntil(this.ngUnsubscribe), share()).subscribe(
       image => {
-        if (image !== 'none') {
+        if (image) {
           const reader = new FileReader();
           reader.onload = e => this.userImage = reader.result as string;
           reader.readAsDataURL(image);
@@ -78,7 +75,10 @@ export class UsersComponent implements OnInit, OnDestroy {
       (err) => { console.log(err); }
     );
     this.loginservice.getDetails().pipe(takeUntil(this.ngUnsubscribe), share()).subscribe(
-      res => {this.userDetails = res; }
+      (res: User) => {if (res) { {this.userDetails = res; if (this.userLoggedIn && res.email_verified_at === null) {
+        console.log(res.email_verified_at);
+        this.router.navigate(['/isverified']);
+      } } } }
     );
     this.filteredOptions = this.myControl.valueChanges.pipe(debounceTime(425), distinctUntilChanged(),
       switchMap( res => this.game.AutoSuggest(res)));
@@ -110,9 +110,9 @@ export class UsersComponent implements OnInit, OnDestroy {
     this.userBarOnChange();
   }
   logOut() {
-    sessionStorage.setItem('loginState', 'false');
+    localStorage.setItem('loginState', 'false');
     this.loginservice.Login();
-    sessionStorage.removeItem('token');
+    localStorage.removeItem('token');
     this.router.navigate(['']);
   }
 }

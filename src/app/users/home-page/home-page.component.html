@@ -5,7 +5,7 @@
   <mat-card class="gameCard" fxFlex="80%">
   <mat-card-header>
     <img [src]=" fileArray[i] || 'assets/images/default_game_image.jpg'" mat-card-avatar>
-  <mat-card-title> {{game.gameName}} </mat-card-title>
+  <mat-card-title > {{game.gameName}} </mat-card-title>
   </mat-card-header>
   <mat-card-content>{{getPlatform(game)}} </mat-card-content>
     <youtube-player
@@ -16,7 +16,7 @@
     <br>
     <mat-card-content>{{game.gameDescription}} </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button color="primary">Go to Game Page</button>
+      <button mat-raised-button color="primary" (click)="goToGame(game)">Go to Game Page</button>
       </mat-card-actions>
   </mat-card>
     </div>

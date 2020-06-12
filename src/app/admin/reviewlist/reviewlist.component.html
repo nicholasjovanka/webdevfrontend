@@ -1,0 +1,30 @@
+<mat-form-field style="width: 50%">
+  <input (keyup)="applyFilter($event)" matInput placeholder="Filter">
+</mat-form-field>
+<br>
+<a> Click to Delete Review</a>
+<br>
+<mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8">
+
+  <ng-container matColumnDef="user_id">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> User Id </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.user_id}}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="userReview">
+  <mat-header-cell *matHeaderCellDef mat-sort-header> User Review. </mat-header-cell>
+  <mat-cell *matCellDef="let element"> {{element.userReview.substring(0,50)}}</mat-cell>
+</ng-container>
+  <ng-container matColumnDef="userScore">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> User Score. </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.userScore}}</mat-cell>
+  </ng-container>
+
+
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row (click)="deleteReview(row)" *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+
+<mat-paginator [pageSizeOptions]="[5,10,20]" showFirstLastButtons >
+
+</mat-paginator>

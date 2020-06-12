@@ -20,7 +20,7 @@ export class GameService {
   public GetLatestGame(): Observable<any> {
     return this.http.get('http://localhost:8000/api/getlatestgame');
   }
-  public AddGame($request): Observable<any>{
+  public AddGame($request): Observable<any> {
    return this.http.post('http://localhost:8000/api/addgame', $request);
   }
   public getCertaingame($id): Observable<any> {
@@ -29,17 +29,21 @@ export class GameService {
   public getGameImage($id): Observable<any> {
     return this.http.get('http://localhost:8000/api/getgameimage/' + $id, {responseType: 'blob'});
   }
-  public updateGame($request, $id): Observable<any>{
+  public updateGame($request, $id): Observable<any> {
     return this.http.post('http://localhost:8000/api/updategame/' + $id, $request);
   }
-  public deleteGame($id): Observable<any>{
+  public deleteGame($id): Observable<any> {
    return this.http.delete('http://localhost:8000/api/deletegame/' + $id);
   }
   public setGameId(id) {
     this.gameId = id;
   }
-  public getGameId(){
+  public getGameId() {
     return this.gameId;
+  }
+
+  public getSteamGame($id): Observable<any> {
+    return this.http.get('http://localhost:8000/api/getsteamgame/' + $id);
   }
   // public Next(page = 1) {
   //   const param = new HttpParams().set('page', String(page));

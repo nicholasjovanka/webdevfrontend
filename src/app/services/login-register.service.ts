@@ -14,8 +14,6 @@ export class LoginRegisterService {
   urlregister = 'http://localhost:8000/api/register';
   urllogin = 'http://localhost:8000/api/login';
   isLoggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  fetchpicture: BehaviorSubject<any> = new BehaviorSubject<any>('none');
-  fetchdetails: BehaviorSubject<any> = new BehaviorSubject<any>('none');
   curentstate: boolean;
   HttpOption: HttpHeaders;
 
@@ -60,12 +58,11 @@ export class LoginRegisterService {
   }
 
   Login() {
-    this.curentstate = sessionStorage.getItem('loginState') === 'true' ? true : false;
+    this.curentstate = localStorage.getItem('loginState') === 'true' ? true : false;
     if (this.curentstate === true) {
       this.isLoggedIn.next(true);
     } else if (this.curentstate === false) {
        this.isLoggedIn.next(false);
-       this.fetchpicture.next('none');
      }
   }
   getLoginStatus(): Observable<boolean> {
@@ -74,32 +71,27 @@ export class LoginRegisterService {
 
   // Picture Related
   getPicture(): Observable<any> {
-    return this.fetchpicture;
+    // @ts-ignore
+    return  this.http.get<any>('http://localhost:8000/api/getimage', { responseType: 'blob'});
   }
 
-  getUserProfilePicture() {
-    // this.HttpOption = new HttpHeaders({
-    //   Accept: '',
-    //   Authorization : sessionStorage.getItem('token') ? 'Bearer ' + sessionStorage.getItem('token').toString() : null
-    // });
-    // return this.http.get<any>(this.urlgetimage, {headers: this.HttpOption, responseType: 'blob'});
-    if (!!sessionStorage.getItem('token')) {
-      // @ts-ignore
-      this.http.get<any>('http://localhost:8000/api/getimage', { responseType: 'blob'}).subscribe(
-        res => { this.fetchpicture.next(res); }
-      );
+  getUserName(id): Observable<any> {
+    return this.http.get('http://localhost:8000/api/getusername/' + id, {responseType: 'text'});
   }
-}
   getDetails(): Observable<User> {
-    return this.fetchdetails;
+    return this.http.get<User>('http://localhost:8000/api/getdetail');
   }
-  getUserDetails() {
-    return this.http.get<User>('http://localhost:8000/api/getdetail').subscribe(
-      res => this.fetchdetails.next(res)
-    );
-}
+
   UpdateProfile(form) {
     return this.http.post<any>('http://localhost:8000/api/updateuserprofile', form,
       ).pipe(catchError(this.registerError));
+  }
+
+  getVerification() {
+    return this.http.get('http://localhost:8000/api/checkverification');
+  }
+
+  resendVerification() {
+    return this.http.get('http://localhost:8000/api/email/resend');
   }
 }

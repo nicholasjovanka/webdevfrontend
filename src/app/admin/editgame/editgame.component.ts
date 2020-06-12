@@ -28,7 +28,7 @@ export class EditgameComponent implements OnInit, OnDestroy {
   private id;
   private ngUnsubscribe = new Subject();
   ngOnInit(): void {
-    this.game.getCertaingame(this.game.getGameId())
+    this.route.paramMap.pipe(map(res => {this.id = res.get('id'); return res; }), switchMap(res => this.game.getCertaingame(res.get('id'))))
       .subscribe((res: Game) => {
         this.gameObject = res;
         console.log(res);
@@ -51,8 +51,7 @@ export class EditgameComponent implements OnInit, OnDestroy {
       AgeRating: [''],
       steamId: [''],
     });
-    console.log(this.id);
-    this.game.getGameImage(this.game.getGameId()).subscribe(
+    this.game.getGameImage(this.id).subscribe(
       image => {
         if (image) {
           const reader = new FileReader();
@@ -126,7 +125,7 @@ export class EditgameComponent implements OnInit, OnDestroy {
       this.formdata.append('platform[platform2]', 'XBOX ONE');
     }
     if (this.editgameform.get('platform3').value === true) {
-      this.formdata.append('platform[platform3]', 'PC');
+      this.formdata.append('platform[platform3]', 'PS4');
     }
     if (this.editgameform.get('platform4').value === true) {
       this.formdata.append('platform[platform4]', 'Nintendo Switch');
@@ -158,6 +157,9 @@ export class EditgameComponent implements OnInit, OnDestroy {
     });
   }
 
+  goToComments() {
+    this.router.navigate(['admin/reviews', this.id]);
+  }
 
 
   Validate(game: Game) {

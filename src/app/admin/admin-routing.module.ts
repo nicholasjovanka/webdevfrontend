@@ -10,6 +10,7 @@ const routes: Routes = [{ path: '', component: AdminComponent , children: [
     { path: 'adminpage', component: MainadminpageComponent},
     { path: 'addgame', loadChildren: () => import('./addgame/addgame.module').then(m => m.AddgameModule) },
     { path: 'editgame/:id', loadChildren: () => import('./editgame/editgame.module').then(m => m.EditgameModule) },
+    { path: 'reviews/:id', loadChildren: () => import('./reviewlist/reviewlist.module').then(m => m.ReviewlistModule) },
   ]}];
 
 @NgModule({

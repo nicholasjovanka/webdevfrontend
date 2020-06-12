@@ -30,11 +30,16 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.loginformdata.append('email', this.loginform.get('email').value);
     this.loginformdata.append('password', this.loginform.get('password').value);
     this.loginservice.login(this.loginformdata).subscribe(
-      res => {sessionStorage.setItem('token', res.success.token);
-              sessionStorage.setItem('loginState', 'true');
+      res => {localStorage.setItem('token', res.success.token);
+              localStorage.setItem('loginState', 'true');
               this.loginservice.curentstate = true;
-              this.route.navigate(['/homepage']);
-              this.loginservice.getUserProfilePicture(); this.loginservice.Login(), this.loginservice.getUserDetails();
+              if (!res.is_verified) {
+                console.log(res);
+                this.route.navigate(['isverified']);
+              } else {
+                this.route.navigate(['/homepage']);
+              }
+
       },
       (err) => {this.openDialog('Email or password is wrong'); }
     );

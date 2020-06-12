@@ -2,7 +2,7 @@ import {Component, Inject, LOCALE_ID, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {LoginRegisterService} from '../../services/login-register.service';
 import {Observable, Subject, Subscription} from 'rxjs';
-import {share, takeUntil} from 'rxjs/operators';
+import {map, share, switchMap, takeUntil} from 'rxjs/operators';
 import {User} from '../../Interfaces/user';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {newPasswordValidator} from '../../Validators/newpassword.validator';
@@ -11,6 +11,8 @@ import {formatDate} from '@angular/common';
 import {ShowOnDirtyErrorStateMatcher} from '@angular/material/core';
 import {MatDialog} from '@angular/material/dialog';
 import {ErrorDialogComponent} from '../../error-dialog/error-dialog.component';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {CustomDialogComponent} from '../../custom-dialog/custom-dialog.component';
 
 @Component({
   selector: 'app-userprofile',
@@ -21,46 +23,47 @@ export class UserprofileComponent implements OnInit, OnDestroy {
   private ngUnsubscribe = new Subject();
   private formdata: FormData;
   constructor(@Inject(LOCALE_ID) private locale, private router: Router,
-              private loginservice: LoginRegisterService, private fb: FormBuilder, public dialog: MatDialog
+              private loginservice: LoginRegisterService, private fb: FormBuilder, public dialog: MatDialog, private snackbar: MatSnackBar
   ) { }
   userImage: string;
-  editprofileform: FormGroup;
+  editprofileform: FormGroup = this.fb.group({
+    oldPassword: ['']
+  });
   userDetails: User;
   imageFile;
   matcher = new ShowOnDirtyErrorStateMatcher();
-  isLoading = true;
+  isLoaded = false;
   ngOnInit(): void {
-    this.loginservice.getPicture().pipe(takeUntil(this.ngUnsubscribe)).subscribe(
+    this.loginservice.getDetails().pipe(takeUntil(this.ngUnsubscribe),
+      map(userdata => { this.userDetails = userdata; return userdata; } ), switchMap( res => this.loginservice.getPicture() )).subscribe(
       image => {
-        if (image !== 'none') {
+        if (image) {
           const reader = new FileReader();
           reader.readAsDataURL(image);
-          reader.onload = e => {this.userImage = reader.result as string; this.isLoading =
-            false; };
+          reader.onload = e => {this.userImage = reader.result as string;
+                                this.editprofileform = this.fb.group({
+              userName: [this.userDetails.name, [Validators.required, Validators.minLength(4)]],
+              email: [this.userDetails.email, [Validators.required, Validators.email]],
+              oldPassword: [''],
+              newPassword : ['', []],
+              confirmPassword : ['', []],
+              birthDate: [this.userDetails.birthdate, [Validators.required]],
+              userImage: ['']
+            }, {validators: [newPasswordValidator]});
+                                this.isLoaded = true;
+          };
         } else {
           this.userImage = null;
         }
       },
       err => console.log(err)
     );
-    this.loginservice.getDetails().pipe(takeUntil(this.ngUnsubscribe)).subscribe(
-      res => {this.userDetails = res; }
-    );
-    this.editprofileform = this.fb.group({
-      userName: [this.userDetails.name, [Validators.required, Validators.minLength(4)]],
-      email: [this.userDetails.email, [Validators.required, Validators.email]],
-      oldPassword: [''],
-      newPassword : ['', []],
-      confirmPassword : ['', []],
-      birthDate: [this.userDetails.birthdate, [Validators.required]],
-      userImage: ['']
-    }, {validators: [newPasswordValidator]});
     this.editprofileform.get('oldPassword').valueChanges.subscribe(
-      value => { if (value !== '') {
+      value => { if (value) {
         this.editprofileform.get('newPassword').setValidators([Validators.required, PasswordStrengthValidator]);
         this.editprofileform.get('confirmPassword').setValidators([Validators.required]);
         this.editprofileform.get('confirmPassword').updateValueAndValidity();
-      } else if (value === '') {
+      } else if (!value) {
         this.editprofileform.get('newPassword').clearValidators();
         this.editprofileform.get('confirmPassword').clearValidators();
         this.editprofileform.get('confirmPassword').updateValueAndValidity();
@@ -100,11 +103,18 @@ export class UserprofileComponent implements OnInit, OnDestroy {
     if (this.editprofileform.get('userImage').value !== null || this.editprofileform.get('userImage').value !== '') {
       this.formdata.append('userimage', this.imageFile);
     }
-    this.loginservice.UpdateProfile(this.formdata).pipe(takeUntil(this.ngUnsubscribe)).subscribe(
-      response => {console.log('Success', response); this.loginservice.getUserProfilePicture();
-                   this.loginservice.getUserDetails(); this.router.navigate(['/homepage']); },
-      error => this.openDialog(error)
-    );
+    const dialogRef = this.dialog.open(CustomDialogComponent, {
+      width: '400px',
+      height: '300px'
+    });
+    dialogRef.afterClosed().subscribe( res => {
+      if (res === 'true') {
+        this.loginservice.UpdateProfile(this.formdata).pipe(takeUntil(this.ngUnsubscribe)).subscribe(
+          response => {  this.snackbar.open('Profile Edited', 'Dismiss', {duration: 2000}); setTimeout(() => location.reload(), 2500); },
+          error => this.openDialog(error)
+        );
+      }
+    });
   }
 
   onStrengthChanged($event: number) {

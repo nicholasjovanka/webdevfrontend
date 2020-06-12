@@ -17,12 +17,13 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
-
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatSliderModule} from '@angular/material/slider';
 const MaterialComponents = [
   MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatFormFieldModule,
   MatInputModule, MatMenuModule, MatExpansionModule, MatCardModule, MatPasswordStrengthModule
   , MatProgressSpinnerModule,  MatAutocompleteModule, MatTableModule, MatPaginatorModule, MatDatepickerModule, MatNativeDateModule,
-  MatSnackBarModule, MatDialogModule,
+  MatSnackBarModule, MatDialogModule, MatTabsModule, MatSliderModule
 ];
 
 @NgModule({
