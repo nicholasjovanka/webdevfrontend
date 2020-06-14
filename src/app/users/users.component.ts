@@ -123,6 +123,7 @@ export class UsersComponent implements OnInit, OnDestroy {
     this.loginservice.Login();
     localStorage.removeItem('token');
     this.router.navigate(['']);
+    location.reload();
   }
   openDialog(err: any) {
     const dialogRef = this.dialog.open(ErrorDialogComponent, {
