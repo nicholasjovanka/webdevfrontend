@@ -1,6 +1,7 @@
 # WADS-FP
 Final Project for COMP6343 – Web Application Development and Security 
 
+Group Number : 13
 Group Member:
 - Nicholas Jovanka : 2201798446
 - Rino Santoso : 2201798736
