@@ -55,4 +55,4 @@ Group Member:
  All website is design is manually made with some exception as using the styling that comes with angular material indigo pink theme
  
 ## Backend:
-   Backend for the project is located here https://github.com/nicholasjovanka/laravelfinalproject
+   Backend for the project is located here https://github.com/nicholasjovanka/laravelfinalproject. This project implements the resful api from the backend to the frontend
