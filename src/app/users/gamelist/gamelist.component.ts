@@ -33,9 +33,9 @@ export class GamelistComponent implements OnInit, OnDestroy {
     //   switchMap( res => this.gamesservice.AutoSuggest(res)));
     this.gamesservice.GetAllGame().pipe(takeUntil(this.ngUnsubscribe)).subscribe(
       (res: Game[]) => {if (res) {this.dataUnformated = res;
-        this.dataSource = new MatTableDataSource(this.dataUnformated);
-        this.loaded = true; this.dataSource.sort = this.sort; this.dataSource.paginator = this.paginator;
-        console.log(this.dataSource); } }
+                                  this.dataSource = new MatTableDataSource(this.dataUnformated);
+                                  this.loaded = true; this.dataSource.sort = this.sort; this.dataSource.paginator = this.paginator;
+                                  console.log(this.dataSource); } }
     );
   }
 
@@ -51,6 +51,8 @@ export class GamelistComponent implements OnInit, OnDestroy {
     this.dataSource.filter = $event.target.value.toLowerCase();
   }
   goToGame(row) {
-    this.router.navigate(['/game']);
+    if (row.id) {
+      this.router.navigate(['game', row.id, {name: row.gameName}]);
+    }
   }
 }

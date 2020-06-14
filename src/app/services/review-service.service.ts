@@ -13,11 +13,11 @@ export class ReviewServiceService {
   constructor(private http: HttpClient) {
   }
   addeditreview(form) {
-    return this.http.post('http://localhost:8000/api/addeditreview', form);
+    return this.http.post('https://api.threviews.me/api/addeditreview', form);
   }
 
   getspecificuser(id) {
-    return this.http.get('http://localhost:8000/api/getspecificuserreview/' + id);
+    return this.http.get('https://api.threviews.me/api/getspecificuserreview/' + id);
   }
   getfivelatestreview(): Observable<any> {
     return this.fetchdetails;
@@ -26,21 +26,21 @@ export class ReviewServiceService {
 
   ScrollThroughReview(id, page= 1) {
     const param = new HttpParams().set('page', String(page));
-    this.http.get('http://localhost:8000/api/getfiveReview/' + id + '?', {params: param}).toPromise().then(
+    this.http.get('https://api.threviews.me/api/getfiveReview/' + id + '?', {params: param}).toPromise().then(
       res => {this.fetchdetails.next(res); }
     );
   }
   getgamereview(id) {
-    return this.http.get('http://localhost:8000/api/getallreview/' + id);
+    return this.http.get('https://api.threviews.me/api/getallreview/' + id);
   }
 
   getWebsiteScore(id) {
-    return this.http.get('http://localhost:8000/api/calculateScore/' + id);
+    return this.http.get('https://api.threviews.me/api/calculateScore/' + id);
   }
   deleteReviewAdmin(id, gameid) {
-    return this.http.delete('http://localhost:8000/api/deletereviewadmin/' + id + '/' + gameid);
+    return this.http.delete('https://api.threviews.me/api/deletereviewadmin/' + id + '/' + gameid);
   }
   deleteuserReview(gameid) {
-    return this.http.delete('http://localhost:8000/api/deletereviewuser/' + gameid);
+    return this.http.delete('https://api.threviews.me/api/deletereviewuser/' + gameid);
   }
 }

@@ -11,8 +11,8 @@ import {User} from '../Interfaces/user';
 })
 export class LoginRegisterService {
   constructor(private http: HttpClient) { }
-  urlregister = 'http://localhost:8000/api/register';
-  urllogin = 'http://localhost:8000/api/login';
+  urlregister = 'https://api.threviews.me/api/register';
+  urllogin = 'https://api.threviews.me/api/login';
   isLoggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   curentstate: boolean;
   HttpOption: HttpHeaders;
@@ -35,7 +35,7 @@ export class LoginRegisterService {
   }
 
   public isUserLoggedIn() {
-    return this.http.get<any>('http://localhost:8000/api/isLoggedIn').pipe(catchError(this.isLoggedInError));
+    return this.http.get<any>('https://api.threviews.me/api/isLoggedIn').pipe(catchError(this.isLoggedInError));
   }
   private editProfileError(error: HttpErrorResponse) {
     if (error.error.error) {
@@ -47,7 +47,7 @@ export class LoginRegisterService {
     }
   }
   isAdmin() {
-    return this.http.get<any>('http://localhost:8000/api/isAdmin');
+    return this.http.get<any>('https://api.threviews.me/api/isAdmin');
   }
   register(form) {
     return this.http.post<any>(this.urlregister, form).pipe(catchError(this.registerError));
@@ -72,26 +72,26 @@ export class LoginRegisterService {
   // Picture Related
   getPicture(): Observable<any> {
     // @ts-ignore
-    return  this.http.get<any>('http://localhost:8000/api/getimage', { responseType: 'blob'});
+    return  this.http.get<any>('https://api.threviews.me/api/getimage', { responseType: 'blob'});
   }
 
   getUserName(id): Observable<any> {
-    return this.http.get('http://localhost:8000/api/getusername/' + id, {responseType: 'text'});
+    return this.http.get('https://api.threviews.me/api/getusername/' + id, {responseType: 'text'});
   }
   getDetails(): Observable<User> {
-    return this.http.get<User>('http://localhost:8000/api/getdetail');
+    return this.http.get<User>('https://api.threviews.me/api/getdetail');
   }
 
   UpdateProfile(form) {
-    return this.http.post<any>('http://localhost:8000/api/updateuserprofile', form,
+    return this.http.post<any>('https://api.threviews.me/api/updateuserprofile', form,
       ).pipe(catchError(this.registerError));
   }
 
   getVerification() {
-    return this.http.get('http://localhost:8000/api/checkverification');
+    return this.http.get('https://api.threviews.me/api/checkverification');
   }
 
   resendVerification() {
-    return this.http.get('http://localhost:8000/api/email/resend');
+    return this.http.get('https://api.threviews.me/api/email/resend');
   }
 }

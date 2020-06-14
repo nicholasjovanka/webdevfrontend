@@ -115,7 +115,7 @@ export class AddgameComponent implements OnInit, OnDestroy {
     }
     this.game.AddGame(this.formdata).pipe(takeUntil(this.ngUnsubscribe)).subscribe(
       response => {console.log('Success', response);  this.router.navigate(['admin']); },
-      error => window.alert(error)
+      error => console.log(error)
     );
 
   }

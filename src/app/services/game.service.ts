@@ -12,28 +12,28 @@ export class GameService {
   public AutoSuggest(Game: string): Observable<any> {
     const form = new FormData();
     form.append('gameName', Game);
-    return this.http.post('http://localhost:8000/api/getgamename', form);
+    return this.http.post('https://api.threviews.me/api/getgamename', form);
   }
   public GetAllGame(): Observable<any> {
-    return this.http.get('http://localhost:8000/api/getallgamename');
+    return this.http.get('https://api.threviews.me/api/getallgamename');
   }
   public GetLatestGame(): Observable<any> {
-    return this.http.get('http://localhost:8000/api/getlatestgame');
+    return this.http.get('https://api.threviews.me/api/getlatestgame');
   }
   public AddGame($request): Observable<any> {
-   return this.http.post('http://localhost:8000/api/addgame', $request);
+   return this.http.post('https://api.threviews.me/api/addgame', $request);
   }
   public getCertaingame($id): Observable<any> {
-    return this.http.get('http://localhost:8000/api/getcertaingame/' + $id);
+    return this.http.get('https://api.threviews.me/api/getcertaingame/' + $id);
   }
   public getGameImage($id): Observable<any> {
-    return this.http.get('http://localhost:8000/api/getgameimage/' + $id, {responseType: 'blob'});
+    return this.http.get('https://api.threviews.me/api/getgameimage/' + $id, {responseType: 'blob'});
   }
   public updateGame($request, $id): Observable<any> {
-    return this.http.post('http://localhost:8000/api/updategame/' + $id, $request);
+    return this.http.post('https://api.threviews.me/api/updategame/' + $id, $request);
   }
   public deleteGame($id): Observable<any> {
-   return this.http.delete('http://localhost:8000/api/deletegame/' + $id);
+   return this.http.delete('https://api.threviews.me/api/deletegame/' + $id);
   }
   public setGameId(id) {
     this.gameId = id;
@@ -43,7 +43,7 @@ export class GameService {
   }
 
   public getSteamGame($id): Observable<any> {
-    return this.http.get('http://localhost:8000/api/getsteamgame/' + $id);
+    return this.http.get('https://api.threviews.me/api/getsteamgame/' + $id);
   }
   // public Next(page = 1) {
   //   const param = new HttpParams().set('page', String(page));

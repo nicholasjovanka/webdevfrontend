@@ -76,7 +76,6 @@ export class UsersComponent implements OnInit, OnDestroy {
     );
     this.loginservice.getDetails().pipe(takeUntil(this.ngUnsubscribe), share()).subscribe(
       (res: User) => {if (res) { {this.userDetails = res; if (this.userLoggedIn && res.email_verified_at === null) {
-        console.log(res.email_verified_at);
         this.router.navigate(['/isverified']);
       } } } }
     );
