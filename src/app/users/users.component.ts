@@ -15,6 +15,8 @@ import {User} from '../Interfaces/user';
 import {Game} from '../Interfaces/game';
 import {GameService} from '../services/game.service';
 import {FormControl} from '@angular/forms';
+import {MatDialog} from '@angular/material/dialog';
+import {ErrorDialogComponent} from '../error-dialog/error-dialog.component';
 
 
 @Component({
@@ -42,7 +44,7 @@ export class UsersComponent implements OnInit, OnDestroy {
   title = 'finalproject';
   userImage: string;
   constructor(private router: Router, private loginservice: LoginRegisterService,
-              private route: ActivatedRoute, private game: GameService) {
+              private route: ActivatedRoute, private game: GameService, private dialog: MatDialog) {
   }
   userBarOn = false;
   userLoggedIn = false;
@@ -95,6 +97,14 @@ export class UsersComponent implements OnInit, OnDestroy {
       this.userBarOn = false;
     }
   }
+
+  Searchgame() {
+    this.game.getGameId(this.myControl.value).pipe(takeUntil(this.ngUnsubscribe)).subscribe(
+      (res: Game) => this.router.navigate(['game', res.id, {name: res.gameName}]),
+      err => this.openDialog('Game Not Found')
+    );
+  }
+
   goToUserProfile() {
     this.router.navigate(['/userprofile', this.userDetails.name, { foo: 'foo'}], {relativeTo: this.route});
     this.userBarOnChange();
@@ -113,5 +123,12 @@ export class UsersComponent implements OnInit, OnDestroy {
     this.loginservice.Login();
     localStorage.removeItem('token');
     this.router.navigate(['']);
+  }
+  openDialog(err: any) {
+    const dialogRef = this.dialog.open(ErrorDialogComponent, {
+      data: {error: err},
+      width: '600',
+      height: '600'
+    });
   }
 }

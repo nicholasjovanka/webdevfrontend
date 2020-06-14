@@ -14,7 +14,7 @@
           <a class="links test" routerLink="/gamelist">Games</a>
         </div>
         <div fxFlex="60%">
-          <form>
+          <form (ngSubmit)="Searchgame()">
             <mat-form-field appearance="standard" floatLabel="never" class="searchbar">
               <mat-label>Search for a Game</mat-label>
               <input placeholder="Dota 2"  matInput  [formControl]="myControl"

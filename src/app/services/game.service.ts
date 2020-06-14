@@ -35,11 +35,11 @@ export class GameService {
   public deleteGame($id): Observable<any> {
    return this.http.delete('https://api.threviews.me/api/deletegame/' + $id);
   }
-  public setGameId(id) {
-    this.gameId = id;
-  }
-  public getGameId() {
-    return this.gameId;
+
+  public getGameId(name): Observable<any> {
+    const form = new FormData();
+    form.append('gameName', name);
+    return this.http.post('https://api.threviews.me/api/getgameid' , form);
   }
 
   public getSteamGame($id): Observable<any> {
