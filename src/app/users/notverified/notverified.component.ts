@@ -25,6 +25,7 @@ export class NotverifiedComponent implements OnInit {
           this.isverified = false;
         } else if (res.email_verified_at) {
           this.isverified = true;
+          this.router.navigate(['']);
         }
       }
     );
